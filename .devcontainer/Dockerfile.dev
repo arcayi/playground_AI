@@ -349,7 +349,7 @@ RUN pip uninstall -y opencv-python
 # ARG USER_ID=1000
 ARG USER_ID=2000
 ARG USERNAME=vscode
-RUN useradd -m --no-log-init --system --uid ${USER_ID} $USERNAME -G sudo -s /bin/bash
+RUN useradd -m --no-log-init --system --uid ${USER_ID} -p password -G sudo,triton-server -s /bin/bash $USERNAME
 # RUN useradd -m --no-log-init --system --uid ${USER_ID} $USERNAME -G sudo,triton-server -s /bin/bash
 # ARG USERNAME=triton-server
 # RUN usermod  --uid ${USER_ID} -aG sudo -p $USERNAME -s /bin/bash $USERNAME 
