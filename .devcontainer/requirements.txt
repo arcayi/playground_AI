@@ -1,9 +1,9 @@
 --index-url http://pypi.mirrors.ustc.edu.cn/simple/
---extra-index-url http://192.168.1.10:7104/test/pypi/
+# --extra-index-url http://192.168.1.10:7104/test/pypi/
 # --extra-index-url http://192.168.1.10:7104/test/devpi/
 # --extra-index-url https://download.pytorch.org/whl/cu117
 --trusted-host pypi.mirrors.ustc.edu.cn
---trusted-host 192.168.1.10
+# --trusted-host 192.168.1.10
 
 # pyscaffold
 pyscaffold

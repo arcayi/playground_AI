@@ -1,6 +1,6 @@
 export TWINE_USERNAME=test
 export TWINE_PASSWORD=test
-export PATH=$PATH:/workspaces/roadai/.devcontainer:/workspaces/roadai/.devcontainer/script:
+export PATH=$PATH:/workspaces/playground_AI/.devcontainer:/workspaces/playground_AI/.devcontainer/script:
 
 # docker from docker
 sudo chmod 666 /var/run/docker.sock
