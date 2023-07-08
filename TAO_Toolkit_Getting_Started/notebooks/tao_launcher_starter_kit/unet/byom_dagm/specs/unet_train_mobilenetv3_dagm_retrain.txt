@@ -1,0 +1,69 @@
+random_seed: 42
+model_config {
+  num_layers: 18
+  model_input_width: 512
+  model_input_height: 512
+  model_input_channels: 3
+  all_projections: true
+  load_graph: true
+  arch: "byom"
+  byom_model: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/unet/mobilenetv3_unet_scratch_dagm/mobilenetv3_unet_scratch_dagm.tltb"
+  activation: "softmax"
+  use_batch_norm: true
+  training_precision {
+  backend_floatx: FLOAT32
+  }
+}
+training_config {
+  batch_size: 8
+  epochs: 150
+  log_summary_steps: 10
+  checkpoint_interval: 1
+  loss: "cross_dice_sum"
+  learning_rate:0.00005
+  regularizer {
+    type: L2
+    weight: 0.0
+  }
+  optimizer {
+    adam {
+      epsilon: 9.99999993923e-09
+      beta1: 0.899999976158
+      beta2: 0.999000012875
+    }
+  }
+}
+dataset_config {
+dataset: "custom"
+augment: true
+input_image_type: "grayscale"
+train_data_sources: {
+  data_source: {
+    image_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/DAGM_KaggleUpload/Class7/train_imgsall.txt"
+    masks_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/DAGM_KaggleUpload/Class7/train_masksall.txt"
+  }
+}
+val_data_sources: {
+  data_source: {
+    image_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/DAGM_KaggleUpload/Class7/test_imgsall.txt"
+    masks_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/DAGM_KaggleUpload/Class7/test_masksall.txt"
+  }
+}
+test_data_sources: {
+  data_source: {
+    image_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/DAGM_KaggleUpload/Class7/test_imgsall.txt"
+  }
+}
+data_class_config {
+  target_classes {
+    name: "foreground"
+    mapping_class: "foreground"
+    label_id: 1
+  }
+  target_classes {
+    name: "background"
+    mapping_class: "background"
+    label_id: 0
+  }
+}
+}

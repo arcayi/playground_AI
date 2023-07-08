@@ -1,0 +1,77 @@
+exp_config:
+  manual_seed: 49
+train_config:
+  checkpoint_config:
+    interval: 200
+  logging:
+    interval: 50
+  resume_training_checkpoint_path: null
+  runner:
+    max_iters: 1000
+  validate: True
+  validation_config:
+    interval: 500
+  sf_optim:
+    lr: 0.00006
+model_config:
+  pretrained: null
+  backbone:
+    type: "mit_b1"
+dataset_config:
+  input_type: "grayscale"
+  img_norm_cfg:
+        mean:
+          - 127.5
+          - 127.5
+          - 127.5
+        std:
+          - 127.5
+          - 127.5
+          - 127.5
+        to_rgb: True
+  data_root: /tlt-pytorch
+  train_img_dirs:
+    - /data/images/train
+  train_ann_dirs:
+    - /data/masks/train
+  val_img_dir: /data/images/val
+  val_ann_dir: /data/masks/val
+  palette:
+    - seg_class: foreground
+      rgb:
+        - 0
+        - 0
+        - 0
+      label_id: 0
+      mapping_class: foreground
+    - seg_class: background
+      rgb:
+        - 255
+        - 255
+        - 255
+      label_id: 1
+      mapping_class: background
+  train_pipeline:
+    augmentation_config:
+      random_crop:
+        crop_size:
+          - 512
+          - 512
+        cat_max_ratio: 0.75
+      resize:
+        img_scale:
+          - 1024
+          - 512
+        ratio_range:
+          - 0.5
+          - 2.0
+      random_flip:
+        prob: 0.5
+    Pad:
+      size_ht: 512
+      size_wd: 512
+      pad_val: 0
+      seg_pad_val: 255
+  repeat_data_times: 500
+  batch_size_per_gpu: 4
+  workers_per_gpu: 1

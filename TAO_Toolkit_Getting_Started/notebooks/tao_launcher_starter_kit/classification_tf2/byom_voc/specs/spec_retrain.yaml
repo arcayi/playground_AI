@@ -1,0 +1,51 @@
+results_dir: 'RESULTSDIR'
+key: 'ENC_KEY'
+data:
+  train_dataset_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/split/train"
+  val_dataset_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/split/val"
+  preprocess_mode: 'torch'
+augment:
+  enable_color_augmentation: True
+  enable_center_crop: True
+train:
+  qat: False
+  pretrained_model_path: 'PRUNEDMODEL'
+  batch_size_per_gpu: 64
+  num_epochs: 80
+  optim_config:
+    optimizer: 'sgd'
+  lr_config:
+    scheduler: 'cosine'
+    learning_rate: 0.05
+    soft_start: 0.05
+  reg_config:
+    type: 'L2'
+    scope: ['conv2d', 'dense']
+    weight_decay: 0.00005
+model:
+  arch: 'byom'
+  input_image_size: [3,224,224]
+  input_image_depth: 8
+  byom_model: 'BYOMMODEL'
+evaluate:
+  dataset_path: '/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/split/test'
+  model_path: 'EVALMODEL'
+  top_k: 3
+  batch_size: 256
+  n_workers: 8
+inference:
+  model_path: 'EVALMODEL'
+  image_dir: '/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/split/test/aeroplane'
+  classmap: 'RESULTSDIR/classmap.json'
+export:
+  model_path: 'EVALMODEL'
+  output_path: 'EXPORTDIR/byom.etlt'
+  data_type: 'fp32'
+  engine_file: 'EXPORTDIR/byom.fp32.engine'
+  cal_image_dir: '/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/split/test'
+  cal_data_file: 'EXPORTDIR/calib.tensorfile'
+  cal_cache_file: 'EXPORTDIR/cal.bin'
+  batch_size: 16
+  max_batch_size: 16
+  batches: 10
+  

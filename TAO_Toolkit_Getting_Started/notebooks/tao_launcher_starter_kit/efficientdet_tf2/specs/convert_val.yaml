@@ -1,0 +1,8 @@
+dataset_convert:
+  image_dir: '/workspace/tao-experiments/data/raw-data/val2017/'
+  annotations_file: '/workspace/tao-experiments/data/raw-data/annotations/instances_val2017.json'
+  output_dir: '/workspace/tao-experiments/data'
+  tag: 'val'
+  num_shards: 32
+  include_masks: True
+results_dir: '/workspace/tao-experiments/efficientdet_tf2/experiment_dir_unpruned'

@@ -1,0 +1,17 @@
+model_config:
+  backbone: resnet50
+  input_channels: 3
+  input_size: [256, 128]
+  feat_dim: 256
+  num_classes: 100
+  neck_feat: after
+dataset_config:
+  batch_size: 128
+  workers: 0
+re_ranking_config:
+  re_ranking: True
+  k1: 20
+  k2: 6
+  lambda_value: 0.3
+  max_rank: 10
+  num_query: 10

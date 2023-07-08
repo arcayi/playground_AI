@@ -1,0 +1,6 @@
+model_config:
+  backbone: resnet50
+  input_channels: 3
+  input_size: [256, 128]
+  feat_dim: 256
+  num_classes: 100

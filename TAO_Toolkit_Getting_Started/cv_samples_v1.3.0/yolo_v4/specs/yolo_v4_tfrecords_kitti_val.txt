@@ -1,0 +1,11 @@
+kitti_config {
+  root_directory_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/val"
+  image_dir_name: "image"
+  label_dir_name: "label"
+  image_extension: ".png"
+  partition_mode: "random"
+  num_partitions: 2
+  val_split: 14
+  num_shards: 10
+}
+image_directory_path: "/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/data/val"

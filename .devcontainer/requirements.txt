@@ -1,0 +1,106 @@
+--index-url http://pypi.mirrors.ustc.edu.cn/simple/
+--extra-index-url http://192.168.1.10:7104/test/pypi/
+# --extra-index-url http://192.168.1.10:7104/test/devpi/
+# --extra-index-url https://download.pytorch.org/whl/cu117
+--trusted-host pypi.mirrors.ustc.edu.cn
+--trusted-host 192.168.1.10
+
+# pyscaffold
+pyscaffold
+tox
+setuptools
+wheel
+setuptools-scm
+# pyscaffold
+pyscaffoldext-markdown
+twine
+pytest
+pytest-cov
+
+# dev
+flake8
+black
+numpy
+scipy
+requests
+
+# Sports_AI/openvino_blazepose
+# openvino-dev[extras]
+# open3d
+
+# Sports_AI/pushup-counter-app
+onnx
+onnxruntime-gpu
+# imutils
+# opencv-python
+
+# tflite2tensorflow
+# tf2onnx
+
+# unified_sport_counter
+# dispatchonvalue
+
+wrapt
+
+# nvidia dali
+# nvidia-dali-cuda110 --extra-index-url https://developer.download.nvidia.com/compute/redist
+
+
+# additional tools
+# orange3
+viztracer
+snakeviz
+# pprofile
+
+# pypiserver
+
+cmake
+pip
+
+# fastdeploy-gpu-python==1.0.4 -f https://www.paddlepaddle.org.cn/whl/fastdeploy.html
+# /workspaces/sportai.py/deploy/docker/cached/wheel/fastdeploy_gpu_python-1.0.4-cp38-cp38-manylinux1_x86_64.whl
+# /tmp/pip-tmp/fastdeploy_gpu_python-1.0.4-cp38-cp38-manylinux1_x86_64.whl
+
+# -e /workspaces/sportai.py/ai-models/ \
+# -e /workspaces/sportai.py/video_grabber/ \
+# -e /workspaces/sportai.py/bpose/ \
+# -e /workspaces/sportai.py/camera_calibrator \
+# -e /workspaces/sportai.py/sportai_py_msg/ \
+# -e /workspaces/sportai.py/sportai_py_poseclassifier \
+# -e /workspaces/sportai.py/sportai_py_posedistance \
+# -e /workspaces/sportai.py/sportai_faceid/ \
+# -e /workspaces/sportai.py/sportai_sprint/
+# -e /workspaces/sportai.py/sportai_py/
+
+# PINTO onnx tools
+simple-onnx-processing-tools
+
+# mm-x
+# torch==1.13.1+cu117
+# torchvision==0.14.1+cu117
+# torchaudio==0.13.1
+# openmim
+
+# DALI
+--extra-index-url https://developer.download.nvidia.com/compute/redist
+# nvidia-dali-cuda110
+# nvidia-dali-cuda120
+
+# numba
+# numba
+
+# cupy
+# fastrlock>=0.5
+# "Cython<3,>=0.29.22"
+# cupy-cuda11x
+# cupy-cuda12x
+
+# nvidia-pytriton
+
+--extra-index-url https://pypi.ngc.nvidia.com
+colored
+polygraphy
+# tensorrt==8.5.3.1
+
+# tritonclient[all]
+tritonclient[grpc]

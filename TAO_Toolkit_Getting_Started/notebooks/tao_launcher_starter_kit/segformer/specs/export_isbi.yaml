@@ -1,0 +1,56 @@
+encryption_key: tlt_encode
+exp_config:
+  manual_seed: 49
+  distributed: True
+input_shape:
+  - 512
+  - 512
+model_config:
+  pretrained: null
+  backbone:
+    type: "mit_b1"
+dataset_config:
+  img_norm_cfg:
+      mean:
+          - 127.5
+          - 127.5
+          - 127.5
+      std:
+          - 127.5
+          - 127.5
+          - 127.5
+  test_pipeline:
+    multi_scale:
+      - 512
+      - 512
+    augmentation_config:
+      resize:
+        keep_ratio: True
+  input_type: "grayscale"
+  data_root: /tlt-pytorch
+  test_img_dir: /data/images/val
+  test_ann_dir: /data/masks/val
+  palette:
+    - seg_class: foreground
+      rgb:
+        - 0
+        - 0
+        - 0
+      label_id: 0
+      mapping_class: foreground
+    - seg_class: background
+      rgb:
+        - 255
+        - 255
+        - 255
+      label_id: 1
+      mapping_class: background
+  batch_size_per_gpu: 1
+  workers_per_gpu: 1
+batch_size: -1
+trt_config:
+  data_type: FP32
+  workspace_size: 1024
+  min_batch_size: 1
+  opt_batch_size: 1
+  max_batch_size: 1

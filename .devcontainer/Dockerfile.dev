@@ -1,0 +1,369 @@
+# ARG CUDA_VERSION=11.7.0
+# ARG CUDNN_VERSION=8
+# ARG UBUNTU_VERSION=20.04
+# # ARG TYPE=runtime
+# ARG TYPE=devel
+
+# Another solution using CUDA
+# FROM nvidia/cuda:${CUDA_VERSION}-cudnn${CUDNN_VERSION}-${TYPE}-ubuntu${UBUNTU_VERSION} as d-base
+# FROM paddlepaddle/fastdeploy:1.0.7.1-gpu-cuda12.1-trt8.6-23.05
+FROM nvcr.io/nvidia/tritonserver:23.05-py3
+# Container Version	| Triton Inference Server	| Ubuntu	| CUDA Toolkit	        | TensorRT
+# 23.06             |	2.35.0                  |	22.04   |	NVIDIA CUDA 12.1.1  |	TensorRT 8.6.1.6
+# 23.05             |	2.34.0                  |	22.04   |	NVIDIA CUDA 12.1.1  |	TensorRT 8.6.1.2
+
+ENV PIP_CACHE_DIR=/var/cache/buildkit/pip
+RUN mkdir -p $PIP_CACHE_DIR
+
+LABEL mantainer="  github.com/arcayi   < arcayi@qq.com >    "
+
+# 设置时区
+RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+# ENV DEBIAN_FRONTEND noninteractive
+RUN sed -i -e 's/http\(s\)*:\(.*\)\/ubuntu/http:\/\/mirrors.ustc.edu.cn\/ubuntu/g' /etc/apt/sources.list
+
+RUN rm -f /etc/apt/apt.conf.d/docker-clean
+RUN \
+    --mount=type=cache,target=/var/cache/apt \
+    apt -y update && \
+    apt -y install --no-install-recommends \
+    #   python :    \
+    python3-setuptools \
+    python3-distutils \
+    # python3-pip \
+    libpython3-dev \
+    #   developement tools, opencv image/video/GUI dependencies, optimiztion packages , etc ...  :  \
+    # gcc-8 \
+    # g++-8 \
+    gcc-9 \
+    g++-9 \
+    apt-utils \
+    autoconf \
+    automake \
+    checkinstall \
+    cmake \
+    # gfortran \
+    git \
+    libatlas-base-dev \
+    liblapacke-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    # libavresample-dev \
+    libeigen3-dev \
+    libexpat1-dev \
+    libglew-dev \
+    libgoogle-glog-dev \
+    libgtk-3-dev \
+    libhdf5-dev \
+    libjpeg-dev \
+    liblapack-dev \
+    libopenexr-dev \
+    libopenblas-dev \
+    libpng-dev \
+    libpostproc-dev \
+    libpq-dev \
+    libsm6 \
+    libswscale-dev \
+    libtbb2 \
+    libtbb-dev \
+    libtiff-dev \
+    libtool \
+    libv4l-dev \
+    libwebp-dev \
+    libxext6 \
+    libxrender1 \
+    libxvidcore-dev \
+    pkg-config \
+    protobuf-compiler \
+    # qt5-default \
+    # libqt5opengl5-dev \
+    # qtbase5-dev \
+    qt6-base-dev \
+    libqt6core5compat6-dev \
+    libqt6opengl6 libqt6opengl6-dev \
+    libgtkglext1-dev \
+    # OpenGL
+    libglew-dev libglu1-mesa-dev mesa-utils freeglut3-dev libglm-dev libglfw3 libglfw3-dev  libgl1-mesa-dev libfreetype6-dev \
+    unzip \
+    wget \
+    yasm \
+    zlib1g-dev \
+    #   GStreamer : \
+    gstreamer1.0-plugins-base \
+    gstreamer1.0-plugins-good \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-ugly \
+    gstreamer1.0-libav \
+    # gstreamer1.0-doc \
+    gstreamer1.0-tools \
+    gstreamer1.0-x \
+    gstreamer1.0-alsa \
+    gstreamer1.0-gl \
+    gstreamer1.0-gtk3 \
+    gstreamer1.0-qt5 \
+    gstreamer1.0-pulseaudio \
+    gstreamer1.0-rtsp \
+    libgstreamer1.0-dev \
+    libgstreamer1.0-0 \
+    libgstreamer-plugins-base1.0-dev \
+    libgstreamer-plugins-bad1.0-dev \
+    libgstreamer-plugins-good1.0-dev \
+    libgstreamer-plugins-base1.0-dev \
+    #   others :    \
+    software-properties-common \
+    ffmpeg \
+    sudo \
+    iputils-ping \
+    cifs-utils \
+    # update-alternatives \
+    ssh 
+# tensorrt 
+
+# RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-9 900 --slave /usr/bin/g++ g++ /usr/bin/g++-9
+# RUN update-alternatives --config gcc
+
+# RUN rm -rf /var/lib/apt/lists/* && \
+#     apt purge   --auto-remove && \
+#     apt clean
+
+# FROM d-base as d-pyton
+ENV PIP_CACHE_DIR=/var/cache/buildkit/pip
+
+ARG PYTHON_VERSION=3.10
+# # #   python :
+# # RUN apt update -y \
+# #     # && apt install -y software-properties-common \
+# #     && apt install -y --no-install-recommends software-properties-common \
+# #     && add-apt-repository ppa:deadsnakes/ppa
+# # RUN sed  -i.bak -r  's#deb(-src)?\s*http(s)?://ppa.launchpad.net#deb\1 https://launchpad.proxy.ustclug.org#ig' /etc/apt/sources.list.d/*.list
+# # RUN apt -y update \
+# #     && apt -y install --no-install-recommends \
+# #     # python${PYTHON_VERSION} \
+# #     python${PYTHON_VERSION}-dev \
+# #     # python${PYTHON_VERSION}-full \
+# #     # libpython${PYTHON_VERSION} \
+# #     libpython${PYTHON_VERSION}-dev
+
+# # numpy for the newly installed python :
+# RUN wget https://bootstrap.pypa.io/get-pip.py  && \
+COPY .devcontainer/get-pip.py /tmp/pip-tmp/
+RUN python3 /tmp/pip-tmp/get-pip.py
+RUN pip config set --global global.index-url https://pypi.mirrors.ustc.edu.cn/simple/   && \
+    pip config set --global install.trusted-host pypi.mirrors.ustc.edu.cn   && \
+    pip install -U pip numpy wheel setuptools 
+
+# install new pyhton system wide :
+# RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 30 --slave /usr/local/bin/pip3 pip3 /usr/local/bin/pip${PYTHON_VERSION}
+RUN sudo update-alternatives --install /usr/bin/python3 python3 /usr/bin/python${PYTHON_VERSION} 30 --slave /usr/bin/pip3 pip3 /usr/local/bin/pip${PYTHON_VERSION}
+RUN sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 10 --slave /usr/bin/pip pip /usr/bin/pip3
+# RUN update-alternatives --config python3
+
+# FROM d-pyton as d-dev1
+ENV PIP_CACHE_DIR=/var/cache/buildkit/pip
+
+ARG OPENCV_VERSION=4.6.0
+
+RUN apt -y install --no-install-recommends \
+    ccache
+# liblept
+
+# OpenCV dependencies:
+# sudo apt -y install --no-install-recommends libgtkglext1-dev
+# sudo apt -y install --no-install-recommends build-essential libgtk2.0-dev libgtk-3-dev libavcodec-dev libavformat-dev libjpeg-dev libswscale-dev libtiff5-dev 
+# sudo apt -y install --no-install-recommends python3-dev python3-numpy
+# sudo apt -y install --no-install-recommends libgstreamer-plugins-base1.0-dev libgstreamer1.0-dev
+# sudo apt -y install --no-install-recommends libpng-dev libopenexr-dev libtiff-dev libwebp-dev
+# Download NVIDIA VIDEO CODEC SDK: https://developer.nvidia.com/nvidia-video-codec-sdk/download
+# unzip ../Video_Codec_Interface_12.1.14.zip; sudo cp Video_Codec_Interface_12.1.14/Interface/*.h /usr/local/cuda/include/
+# opencv and opencv-contrib :
+# RUN cd /opt/ &&\
+#     wget https://github.com/opencv/opencv/archive/${OPENCV_VERSION}.zip -O opencv.zip &&\
+#     unzip -y opencv.zip &&\
+#     rm opencv.zip &&\
+#     wget https://github.com/opencv/opencv_contrib/archive/${OPENCV_VERSION}.zip -O opencv-co.zip &&\
+#     unzip -y opencv-co.zip &&\
+#     rm opencv-co.zip &&\
+#     mkdir /opt/opencv-${OPENCV_VERSION}/build && cd /opt/opencv-${OPENCV_VERSION}/build &&\
+#     cmake .. \
+#       -D BUILD_opencv_java=OFF \
+#       -D WITH_CUDA=ON \
+#       -D WITH_CUBLAS=ON \
+#       -D WITH_CUDNN=ON \
+#       -D OPENCV_DNN_CUDA=ON \
+#       -D CUDA_ARCH_BIN='6.0 6.2 7.0 7.5 8.0 8.6' \
+#       -D CUDA_ARCH_PTX=7.5 \
+#       -D WITH_NVCUVID=ON \
+#       -D BUILD_opencv_cudacodec=ON \
+#       -D WITH_NVCUVENC=ON \
+#       -D WITH_CUFFT=ON \
+#       -D WITH_OPENGL=ON \
+#       -D WITH_QT=ON \
+#       -D WITH_IPP=ON \
+#       -D WITH_VULKAN=ON \
+#       -D WITH_TBB=ON \
+#       -D WITH_EIGEN=ON \
+#       -D WITH_FFMPEG=ON \
+#       -D WITH_GSTREAMER=ON \
+#       -D WITH_OPENMP=ON \
+#       -D WITH_PTHREADS_PF=ON \
+#       -D WITH_LAPACK=ON \
+#       -D WITH_PROTOBUF=ON \
+#       -D WITH_ONNX=ON \
+#       -D WITH_V4L=ON \
+#       -D CMAKE_BUILD_TYPE=RELEASE \
+#       -D WITH_1394=OFF \
+#       -D OPENCV_EXTRA_MODULES_PATH=/workspaces/Sports_AI/opencv_contrib/modules \
+#       -D CMAKE_INSTALL_PREFIX=$(python${PYTHON_VERSION} -c "import sys; print(sys.prefix)") \
+#       -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda \
+#       -D CMAKE_LIBRARY_PATH=/usr/local/cuda/lib64/stubs \
+#       -D BUILD_opencv_python3=ON \
+#       -D PYTHON3_EXECUTABLE=$(which python${PYTHON_VERSION})  \
+#       -D INSTALL_PYTHON_EXAMPLES=OFF \
+#       -D CPACK_BINARY_DEB=ON \
+#       -D BUILD_PERF_TESTS=OFF \
+#       -D BUILD_TESTS=OFF \
+#       -D BUILD_DOCS=OFF \
+#       -D BUILD_EXAMPLES=OFF \
+#       -D OPENCV_GENERATE_PKGCONFIG=ON \
+#       -D CPU_BASELINE=SSE4_1,POPCNT,SSE4_2,F16,FMA3,AVX,AVX2 \
+#       -D CPU_DISPATCH=SSE4_1,POPCNT,SSE4_2,F16,FMA3,AVX,AVX2,AVX512F,AVX512_COMMON,AVX512_KNL,AVX512_KNM,AVX512_SKX,AVX512_CNL,AVX512_CLX,AVX512_ICL \
+#       -D CUDA_cupti_LIBRARY:FILEPATH="/usr/local/cuda/targets/x86_64-linux/lib/libcupti.so" \
+#       -D CUDA_SDK_ROOT_DIR:PATH="/usr/local/cuda" \
+#       -D CUDA_nvcuvid_LIBRARY:FILEPATH="/usr/lib/x86_64-linux-gnu/libnvcuvid.so.1" \
+#       -D CUDA_nvidia-encode_LIBRARY:FILEPATH="/usr/lib/x86_64-linux-gnu/libnvidia-encode.so.1" \
+#       -D BUILD_opencv_ccalib:BOOL="1"  \
+#       &&\
+#     sudo make -j$(nproc) && \
+#     sudo make install && \
+#     sudo make package -j$(nproc) CPACK_GENERATOR=DEB &&\
+#     sudo ldconfig
+# So, you should have OpenCV-*-{libs,dev}.deb You need both.
+# PYTHON_VERSION=3.8
+# echo $PYTHON_VERSION
+
+# RUN rm -rf /opt/opencv-${OPENCV_VERSION} && rm -rf /opt/opencv_contrib-${OPENCV_VERSION}
+
+# RUN --mount=type=cache,target=/data,id=opencv_volume,sharing=locked
+
+ENV NVIDIA_DRIVER_CAPABILITIES all
+# RUN mkdir /tmp
+# RUN chmod a+rxw /tmp
+# ENV XDG_RUNTIME_DIR /tmp
+
+
+# FROM d-dev1 as d-dev
+ENV PIP_CACHE_DIR=/var/cache/buildkit/pip
+
+# FROM  d-base as d-dev
+
+# # added later
+# RUN apt -y update && \
+#     apt -y install  \
+#         gcc-8 \
+#         g++-8
+# RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 800 --slave /usr/bin/g++ g++ /usr/bin/g++-8
+
+
+# RUN apt install -y protobuf-compiler
+# RUN apt install -y npm
+# RUN npm install -g @bazel/bazelisk
+
+# RUN sudo apt -y install build-essential
+# RUN sudo apt -y install libglew-dev libsdl2-dev libsdl2-image-dev libglm-dev libfreetype6-dev
+# RUN sudo apt -y install libglfw3-dev libglfw3
+# RUN sudo apt -y install libgl1-mesa-dev libglu1-mesa-dev mesa-utils freeglut3-dev
+# RUN sudo apt -y install libgtkglext1 libgtkglext1-dev
+# RUN sudo apt -y install libopencv-core-dev libopencv-highgui-dev \
+#                 libopencv-calib3d-dev libopencv-features2d-dev \
+#                 libopencv-imgproc-dev libopencv-video-dev
+# glxinfo | grep OpenGL
+
+
+# # [Optional] If your pip requirements rarely change, uncomment this section to add them to the image.
+# COPY .devcontainer/requirements.txt /tmp/pip-tmp/
+# # COPY requirements.txt /tmp/pip-tmp/
+# RUN pip --disable-pip-version-check --no-cache-dir install -r /tmp/pip-tmp/requirements.txt \
+#     && rm -rf /tmp/pip-tmp
+
+ENV CUDA_MODULE_LOADING=${CUDA_MODULE_LOADING:-"LAZY"}
+
+RUN apt update && \
+    apt install -y --no-install-recommends --fix-missing git-lfs vim
+
+RUN apt -y install --no-install-recommends \
+    sysstat build-essential gdb libdc1394-25 libgraphviz-dev
+
+RUN apt remove -y cmake
+# RUN pip install -U cmake pip
+
+RUN apt -y --fix-broken install
+
+
+# 安装docker
+RUN apt-get update
+RUN apt-get install -y ca-certificates curl gnupg lsb-release iproute2
+RUN mkdir -p /etc/apt/keyrings
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list >/dev/null
+RUN chmod a+r /etc/apt/keyrings/docker.gpg
+RUN apt-get update
+# RUN apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+RUN apt -y install --no-install-recommends docker-ce-cli docker-compose-plugin docker-buildx-plugin
+
+# RUN pip install fastdeploy-gpu-python==1.0.4 -f https://www.paddlepaddle.org.cn/whl/fastdeploy.html
+# RUN pip uninstall -y opencv-python
+
+
+
+RUN apt remove --auto-remove -y libopencv-dev
+# COPY .devcontainer/thirdparty/opencv-dist/py${PYTHON_VERSION}-ubuntu20.04-cu121/4.7.0/OpenCV-4.7.0-x86_64-*.deb /tmp/
+# COPY .devcontainer/thirdparty/opencv-dist/py3.10-ubuntu22.04-cu1211/OpenCV-4.*.deb /tmp/
+# RUN apt install -y --no-install-recommends -f  /tmp/OpenCV-4.*.deb
+# WORKDIR /tmp
+# RUN sudo dpkg -i OpenCV-4.8.0-x86_64-dev.deb OpenCV-4.8.0-x86_64-libs.deb OpenCV-4.8.0-x86_64-licenses.deb OpenCV-4.8.0-x86_64-main.deb OpenCV-4.8.0-x86_64-python.deb OpenCV-4.8.0-x86_64-scripts.deb
+
+COPY .devcontainer/requirements.txt /tmp/pip-tmp/
+RUN pip install -r /tmp/pip-tmp/requirements.txt
+# pip install -r ${SCRIPT_DIR}/requirements.txt \
+
+# COPY .devcontainer/cache/fastdeploy_gpu_python-1.0.4-cp38-cp38-manylinux1_x86_64.whl /tmp/pip-tmp/
+# RUN pip install \
+#     --index-url http://pypi.mirrors.ustc.edu.cn/simple/ \
+#     --extra-index-url http://192.168.1.10:7104/test/pypi/ \
+#     --trusted-host pypi.mirrors.ustc.edu.cn \
+#     --trusted-host 192.168.1.10 \
+#     /tmp/pip-tmp/fastdeploy_gpu_python-1.0.4-cp38-cp38-manylinux1_x86_64.whl
+
+RUN rm -rf /tmp/pip-tmp
+
+# RUN pip install fastdeploy-gpu-python==1.0.4 -f https://www.paddlepaddle.org.cn/whl/fastdeploy.html
+
+# RUN pip uninstall -y opencv-python
+RUN pip uninstall -y opencv-python
+
+# create a non-root user
+# ARG USER_ID=1000
+ARG USER_ID=2000
+ARG USERNAME=vscode
+RUN useradd -m --no-log-init --system --uid ${USER_ID} $USERNAME -G sudo -s /bin/bash
+# RUN useradd -m --no-log-init --system --uid ${USER_ID} $USERNAME -G sudo,triton-server -s /bin/bash
+# ARG USERNAME=triton-server
+# RUN usermod  --uid ${USER_ID} -aG sudo -p $USERNAME -s /bin/bash $USERNAME 
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
+
+# persist cli history for the non-root user
+ARG COMMANDHISTORY=/commandhistory
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=$COMMANDHISTORY/.bash_history" \
+    && mkdir $COMMANDHISTORY \
+    && touch $COMMANDHISTORY/.bash_history \
+    && chown -R $USERNAME $COMMANDHISTORY \
+    && chmod -R a+rw $COMMANDHISTORY/ \
+    && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
+
+USER $USERNAME
+WORKDIR /home/$USERNAME
+ENV PATH="/home/$USERNAME/.local/bin:${PATH}"

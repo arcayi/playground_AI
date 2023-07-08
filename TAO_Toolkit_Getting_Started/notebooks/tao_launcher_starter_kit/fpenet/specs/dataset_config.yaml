@@ -1,0 +1,10 @@
+sets: [afw]
+gt_path: 'data'
+save_path: 'data/tfrecords'
+gt_root_path: '/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/fpenet'
+save_root_path: '/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/fpenet'
+image_root_path: '/workspaces/roadai/TAO_Toolkit_Getting_Started/notebooks/tao_launcher_starter_kit/fpenet'
+tfrecord_folder: 'FpeTfRecords'
+tfrecord_name: 'data.tfrecords'
+num_keypoints: 80
+bbox_enlarge_ratio: 1.0

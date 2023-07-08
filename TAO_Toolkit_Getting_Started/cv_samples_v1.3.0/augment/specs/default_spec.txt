@@ -1,0 +1,21 @@
+# Spec file for tlt-augment.
+spatial_config{
+  rotation_config{
+      angle: 10.0
+      units: "degrees"
+  }
+}
+dataset_config{
+    image_path: "image_2"
+    label_path: "label_2"
+}
+color_config{
+    hue_saturation_config{
+        hue_rotation_angle: 5.0
+        saturation_shift: 1.0
+    }
+}
+output_image_width: 1248
+output_image_height: 384
+output_image_channel: 3
+image_extension: ".png"
