@@ -3,8 +3,9 @@
 # git config --global --add safe.directory /workspaces/roadai/.devcontainer
 
 sudo pip config set --global global.index-url http://pypi.mirrors.ustc.edu.cn/simple/
-sudo pip config set --global global.extra-index-url http://192.168.1.10:7104/test/pypi/
-sudo pip config set --global install.trusted-host "pypi.mirrors.ustc.edu.cn 192.168.1.10"
+# sudo pip config set --global global.extra-index-url http://192.168.1.10:7104/test/pypi/
+# sudo pip config set --global install.trusted-host "pypi.mirrors.ustc.edu.cn 192.168.1.10"
+sudo pip config set --global install.trusted-host "pypi.mirrors.ustc.edu.cn"
 
 # sudo apt -y install --no-install-recommends \
 #   sysstat build-essential gdb libdc1394-25 libgraphviz-dev
@@ -43,7 +44,7 @@ sudo usermod -aG docker $USER
 
 unset PIP_CACHE_DIR
 
-echo "source /workspaces/roadai/.devcontainer/env.sh" >>/home/vscode/.bashrc
+echo "source /workspaces/playground_AI/.devcontainer/env.sh" >>/home/vscode/.bashrc
 
 sudo apt-get install -y --no-install-recommends xorriso isolinux
 sudo apt-get install -y --no-install-recommends python3-tk

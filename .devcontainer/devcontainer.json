@@ -69,7 +69,7 @@
 			]
 		}
 	},
-	"initializeCommand": "xhost +",
+	// "initializeCommand": "xhost +",
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
@@ -83,7 +83,7 @@
 		// docker
 		"source=/etc/docker/,target=/etc/docker/,type=bind,consistency=cached",
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-		"source=/home/ywh/.docker/config.json,target=/home/vscode/.docker/config.json,type=bind",
+		"source=/home/arca/.docker/config.json,target=/home/vscode/.docker/config.json,type=bind",
 		// command history
 		"source=roadai-bashhistory,target=/commandhistory,type=volume",
 		// third-party
