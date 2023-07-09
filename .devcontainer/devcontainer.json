@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/python-3
 {
-	"name": "roads_ai",
+	"name": "playground_AI",
 	"build": {
 		"dockerfile": "Dockerfile.dev",
 		// "dockerfile": "Dockerfile.dev.DeepStreamSDK",
@@ -83,7 +83,6 @@
 		// docker
 		"source=/etc/docker/,target=/etc/docker/,type=bind,consistency=cached",
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-		"source=/home/arca/.docker/config.json,target=/home/vscode/.docker/config.json,type=bind",
 		// command history
 		"source=roadai-bashhistory,target=/commandhistory,type=volume",
 		// third-party
