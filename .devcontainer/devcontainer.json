@@ -83,7 +83,6 @@
 		// docker
 		"source=/etc/docker/,target=/etc/docker/,type=bind,consistency=cached",
 		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
-		"source=/home/ywh/.docker/config.json,target=/home/vscode/.docker/config.json,type=bind",
 		// command history
 		"source=roadai-bashhistory,target=/commandhistory,type=volume",
 		// third-party

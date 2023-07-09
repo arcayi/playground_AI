@@ -357,11 +357,11 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers
 
 # persist cli history for the non-root user
 ARG COMMANDHISTORY=/commandhistory
-RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=$COMMANDHISTORY/.bash_history" \
-    && mkdir $COMMANDHISTORY \
-    && touch $COMMANDHISTORY/.bash_history \
-    && chown -R $USERNAME $COMMANDHISTORY \
-    && chmod -R a+rw $COMMANDHISTORY/ \
+RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=${COMMANDHISTORY}/.bash_history" \
+    && mkdir ${COMMANDHISTORY} \
+    && touch ${COMMANDHISTORY}/.bash_history \
+    && chown -R $USERNAME ${COMMANDHISTORY} \
+    && chmod -R u+rw ${COMMANDHISTORY}/ \
     && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
 
 USER $USERNAME
