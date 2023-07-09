@@ -163,3 +163,4 @@ cython_debug/
 dataset/
 try_autodistill/images/
 try_autodistill/videos/
+try_autodistill/runs/detect/predict/milk-video-3.mp4
