@@ -1,0 +1,3 @@
+[submodule "yolov8_training"]
+	path = yolov8_training
+	url = https://github.com/arcayi/yolov8_training.git
