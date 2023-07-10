@@ -87,11 +87,18 @@
 		"yaml.format.printWidth": 160,
 		"prettier.printWidth": 120,
 		"python.analysis.diagnosticMode": "workspace",
-		"python.formatting.provider": "black"
+		"python.formatting.provider": "black",
+		"remote.localPortHost": "allInterfaces"
 	},
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "../../../sportai/Git_Repo/models"
+		},
+		{
+			"path": "../../../sportai/Git_Repo/ai_models"
 		}
 	]
 }
