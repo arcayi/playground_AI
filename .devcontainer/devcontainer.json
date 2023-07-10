@@ -38,7 +38,7 @@
 			// Add the IDs of extensions you want installed when the container is created.
 			"extensions": [
 				"ms-python.python",
-				"ms-python.vscode-pylance",
+				// "ms-python.vscode-pylance",
 				"donjayamanne.githistory",
 				"codezombiech.gitignore",
 				"eamodio.gitlens",
@@ -65,7 +65,8 @@
 				"donjayamanne.githistor",
 				"njpwerner.autodocstring",
 				"visualstudioexptteam.vscodeintellicode",
-				"ms-toolsai.jupyter"
+				"ms-toolsai.jupyter",
+				"charliermarsh.ruff"
 			]
 		}
 	},
