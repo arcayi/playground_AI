@@ -113,12 +113,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../../sportai/Git_Repo/models"
-		},
-		{
-			"path": "../../../sportai/Git_Repo/ai_models"
 		}
 	]
 }
