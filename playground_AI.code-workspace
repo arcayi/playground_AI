@@ -93,9 +93,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../../usr/local/lib/python3.10/dist-packages/ultralytics"
 		}
 	]
 }
