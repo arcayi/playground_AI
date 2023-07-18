@@ -3,7 +3,7 @@
 # git config --global --add safe.directory /workspaces/roadai/.devcontainer
 
 sudo pip config set --global global.index-url http://pypi.mirrors.ustc.edu.cn/simple/
-sudo pip config set --global global.extra-index-url http://192.168.1.10:7104/test/pypi/
+sudo pip config set --global global.extra-index-url "http://192.168.1.10:7104/test/pypi/,http://192.168.1.10:7104/test/devpi/"
 sudo pip config set --global install.trusted-host "pypi.mirrors.ustc.edu.cn 192.168.1.10"
 
 # sudo apt -y install --no-install-recommends \
