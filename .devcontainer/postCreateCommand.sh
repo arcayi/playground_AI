@@ -49,7 +49,7 @@ echo "source /workspaces/playground_AI/.devcontainer/env.sh" >>/home/vscode/.bas
 sudo apt-get install -y --no-install-recommends xorriso isolinux
 sudo apt-get install -y --no-install-recommends python3-tk
 # sudo apt-get install -y --no-install-recommends libssl1.1
-sudo apt-get install -y --no-install-recommends libssl3
+sudo apt-get install -y --no-install-recommends libssl3 glances
 
 # sudo apt-get install -y --no-install-recommends cuda-11-8 nvidia-compute-utils-530 nvidia-utils-530
 

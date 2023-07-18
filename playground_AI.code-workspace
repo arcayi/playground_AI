@@ -88,7 +88,27 @@
 		"prettier.printWidth": 120,
 		"python.analysis.diagnosticMode": "workspace",
 		"python.formatting.provider": "black",
-		"remote.localPortHost": "allInterfaces"
+		"remote.localPortHost": "allInterfaces",
+		"workbench.colorCustomizations": {
+			"activityBar.activeBackground": "#7dca48",
+			"activityBar.background": "#7dca48",
+			"activityBar.foreground": "#15202b",
+			"activityBar.inactiveForeground": "#15202b99",
+			"activityBarBadge.background": "#3973c6",
+			"activityBarBadge.foreground": "#e7e7e7",
+			"commandCenter.border": "#15202b99",
+			"sash.hoverBorder": "#7dca48",
+			"statusBar.background": "#64ad32",
+			"statusBar.foreground": "#15202b",
+			"statusBarItem.hoverBackground": "#4d8527",
+			"statusBarItem.remoteBackground": "#64ad32",
+			"statusBarItem.remoteForeground": "#15202b",
+			"titleBar.activeBackground": "#64ad32",
+			"titleBar.activeForeground": "#15202b",
+			"titleBar.inactiveBackground": "#64ad3299",
+			"titleBar.inactiveForeground": "#15202b99"
+		},
+		"peacock.remoteColor": "#64ad32"
 	},
 	"folders": [
 		{

@@ -109,3 +109,5 @@ tritonclient[grpc]
 ultralytics
 pylabel
 tqdm
+opencv-python
+tensorboard
