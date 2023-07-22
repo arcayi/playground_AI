@@ -92,6 +92,7 @@
 		// other projects
 		"source=/data/Git_Repository/Projects_AI/,target=/workspaces/Projects_AI,type=bind,consistency=cached",
 		"source=/data/Git_Repository/Projects_AI/,target=/data/Git_Repository/Projects_AI/,type=bind,consistency=cached",
+		"source=/home/sportai/Git_Repo,target=/workspaces/sportai/Git_Repo/,type=bind,consistency=cached",
 		// cache
 		"source=/data/Git_Repository/Projects_AI/AI/.cache,target=/home/vscode/.cache/,type=bind,consistency=cached",
 		"source=/data/Git_Repository/Projects_AI/AI/.config,target=/home/vscode/.config,type=bind"
