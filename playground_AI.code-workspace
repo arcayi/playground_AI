@@ -113,6 +113,12 @@
 	"folders": [
 		{
 			"path": "."
+		},
+		{
+			"path": "/home/arca/Git_Repo"
+		},
+		{
+			"path": "/home/sportai/Git_Repo"
 		}
 	]
 }
