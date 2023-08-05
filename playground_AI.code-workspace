@@ -119,6 +119,12 @@
 		},
 		{
 			"path": "/home/sportai/Git_Repo"
+		},
+		{
+			"path": "/home/arca/Git_Repo/sportai_py_poseclassifier"
+		},
+		{
+			"path": "/home/arca/Git_Repo/PaddleVideo"
 		}
 	]
 }
