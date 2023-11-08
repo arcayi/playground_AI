@@ -83,11 +83,9 @@
 			"cfenv": "cpp"
 		},
 		"python.defaultInterpreterPath": "/usr/bin/python",
-		"python.linting.flake8Enabled": true,
 		"yaml.format.printWidth": 160,
 		"prettier.printWidth": 120,
 		"python.analysis.diagnosticMode": "workspace",
-		"python.formatting.provider": "black",
 		"remote.localPortHost": "allInterfaces",
 		"workbench.colorCustomizations": {
 			"activityBar.activeBackground": "#7dca48",
@@ -112,19 +110,14 @@
 	},
 	"folders": [
 		{
+			"name": ".devcontainer",
+			"path": ".devcontainer"
+		},
+		{
+			"path": "cvat"
+		},
+		{
 			"path": "."
-		},
-		{
-			"path": "/home/arca/Git_Repo"
-		},
-		{
-			"path": "/home/sportai/Git_Repo"
-		},
-		{
-			"path": "/home/arca/Git_Repo/sportai_py_poseclassifier"
-		},
-		{
-			"path": "/home/arca/Git_Repo/PaddleVideo"
 		}
 	]
 }
