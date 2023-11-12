@@ -114,10 +114,13 @@
 			"path": ".devcontainer"
 		},
 		{
-			"path": "cvat"
+			"path": "."
 		},
 		{
-			"path": "."
+			"path": ".."
+		},
+		{
+			"path": "../cvat"
 		}
 	]
 }
